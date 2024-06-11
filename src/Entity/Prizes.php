@@ -71,6 +71,18 @@ class Prizes
         return $this;
     }
 
+    public function getPartner(): ?Partners
+    {
+        return $this->partner;
+    }
+
+    public function setPartner(?Partners $partner): self
+    {
+        $this->partner = $partner;
+        $this->partner_id = $partner ? $partner->getCsvPartnerId() : null;
+        return $this;
+    }
+
     public function getPartnerId(): ?int
     {
         return $this->partner_id;
