@@ -37,14 +37,7 @@ class GameService
             throw new \Exception('You have already played today');
         }
 
-        $currentTime = new \DateTime();
-        $start = (new \DateTime())->setTime(9, 0, 0);
-        $end = (new \DateTime())->setTime(20, 0, 0);
-
-        if ($currentTime < $start || $currentTime > $end) {
-            //throw new \Exception('Playing is not allowed during this time');
-        }
-
+        $this->checkAllowedTime();
 
         $this->entityManager->beginTransaction();
 
@@ -113,5 +106,16 @@ class GameService
     {
         $today = (new \DateTime())->format('Y-m-d');
         return $this->userPrizesRepository->findOneBy(['user' => $user, 'date_played' => new \DateTime($today)]);
+    }
+
+    private function checkAllowedTime(): void
+{
+        $currentTime = new \DateTime();
+        $start = (new \DateTime())->setTime(9, 0, 0);
+        $end = (new \DateTime())->setTime(20, 0, 0);
+
+        if ($currentTime < $start || $currentTime > $end) {
+            throw new \Exception('Playing is not allowed during this time');
+        }
     }
 }
