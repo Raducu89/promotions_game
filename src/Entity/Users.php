@@ -8,9 +8,8 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
-class Users implements  PasswordAuthenticatedUserInterface, UserInterface
+class Users implements PasswordAuthenticatedUserInterface, UserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -35,13 +34,6 @@ class Users implements  PasswordAuthenticatedUserInterface, UserInterface
         return $this->id;
     }
 
-    public function setId(int $id): static
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
     public function getUsername(): ?string
     {
         return $this->username;
@@ -50,7 +42,6 @@ class Users implements  PasswordAuthenticatedUserInterface, UserInterface
     public function setUsername(string $username): static
     {
         $this->username = $username;
-
         return $this;
     }
 
@@ -62,7 +53,6 @@ class Users implements  PasswordAuthenticatedUserInterface, UserInterface
     public function setPassword(string $password): static
     {
         $this->password = $password;
-
         return $this;
     }
 
@@ -74,7 +64,6 @@ class Users implements  PasswordAuthenticatedUserInterface, UserInterface
     public function setLanguage(string $language): static
     {
         $this->language = $language;
-
         return $this;
     }
 
@@ -90,13 +79,10 @@ class Users implements  PasswordAuthenticatedUserInterface, UserInterface
 
     public function eraseCredentials(): void
     {
-        
     }
 
-    
     public function setRoles(array $roles): void
     {
-        
     }
 
     public function getUserIdentifier(): string

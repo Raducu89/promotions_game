@@ -8,6 +8,11 @@ use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @extends ServiceEntityRepository<Prizes>
+ *
+ * @method Prizes|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Prizes|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Prizes[]    findAll()
+ * @method Prizes[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class PrizesRepository extends ServiceEntityRepository
 {
@@ -16,28 +21,44 @@ class PrizesRepository extends ServiceEntityRepository
         parent::__construct($registry, Prizes::class);
     }
 
-    //    /**
-    //     * @return Prizes[] Returns an array of Prizes objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('p.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function findAvailablePrize(string $language): ?Prizes
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.is_available = :available')
+            ->andWhere('p.language = :language')
+            ->setParameter('available', 1)
+            ->setParameter('language', $language)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 
-    //    public function findOneBySomeField($value): ?Prizes
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function findRandomAvailablePrize(string $language): ?Prizes
+    {
+        $prizes = $this->createQueryBuilder('p')
+            ->andWhere('p.is_available = :available')
+            ->andWhere('p.language = :language')
+            ->setParameter('available', 1)
+            ->setParameter('language', $language)
+            ->getQuery()
+            ->getResult();
+
+        if (count($prizes) === 0) {
+            return null;
+        }
+
+        $randomIndex = array_rand($prizes);
+        return $prizes[$randomIndex];
+    }
+    
+
+    public function countAvailablePrizes(): int
+    {
+        return $this->createQueryBuilder('p')
+            ->select('count(p.id)')
+            ->andWhere('p.is_available = :available')
+            ->setParameter('available', true)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

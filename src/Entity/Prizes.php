@@ -23,9 +23,6 @@ class Prizes
     #[ORM\JoinColumn(nullable: false)]
     private ?Partners $partner = null;
 
-    #[ORM\Column]
-    private ?int $partner_id = null;
-
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
@@ -40,13 +37,6 @@ class Prizes
         return $this->id;
     }
 
-    public function setId(int $id): static
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
     public function getPrizeId(): ?int
     {
         return $this->prize_id;
@@ -55,7 +45,6 @@ class Prizes
     public function setPrizeId(int $prize_id): static
     {
         $this->prize_id = $prize_id;
-
         return $this;
     }
 
@@ -67,7 +56,6 @@ class Prizes
     public function setPrizeCode(string $prize_code): static
     {
         $this->prize_code = $prize_code;
-
         return $this;
     }
 
@@ -76,22 +64,9 @@ class Prizes
         return $this->partner;
     }
 
-    public function setPartner(?Partners $partner): self
+    public function setPartner(?Partners $partner): static
     {
         $this->partner = $partner;
-        $this->partner_id = $partner ? $partner->getCsvPartnerId() : null;
-        return $this;
-    }
-
-    public function getPartnerId(): ?int
-    {
-        return $this->partner_id;
-    }
-
-    public function setPartnerId(int $partner_id): static
-    {
-        $this->partner_id = $partner_id;
-
         return $this;
     }
 
@@ -103,7 +78,6 @@ class Prizes
     public function setName(string $name): static
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -115,7 +89,6 @@ class Prizes
     public function setLanguage(string $language): static
     {
         $this->language = $language;
-
         return $this;
     }
 
@@ -127,7 +100,6 @@ class Prizes
     public function setAvailable(bool $is_available): static
     {
         $this->is_available = $is_available;
-
         return $this;
     }
 }

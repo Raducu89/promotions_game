@@ -29,22 +29,14 @@ class PrizeDistribution
         return $this->id;
     }
 
-    public function setId(int $id): static
+    public function getPrize(): ?Prizes
     {
-        $this->id = $id;
-
-        return $this;
+        return $this->prize;
     }
 
-    public function getPrizeId(): ?int
+    public function setPrize(?Prizes $prize): static
     {
-        return $this->prize_id;
-    }
-
-    public function setPrizeId(int $prze_id): static
-    {
-        $this->prize_id = $prze_id;
-
+        $this->prize = $prize;
         return $this;
     }
 
@@ -56,7 +48,6 @@ class PrizeDistribution
     public function setDate(\DateTimeInterface $date): static
     {
         $this->date = $date;
-
         return $this;
     }
 
@@ -68,7 +59,6 @@ class PrizeDistribution
     public function setDistributed(bool $distributed): static
     {
         $this->distributed = $distributed;
-
         return $this;
     }
 }

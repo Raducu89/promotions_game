@@ -30,34 +30,25 @@ class UserPrizes
         return $this->id;
     }
 
-    public function setId(int $id): static
+    public function getUser(): ?Users
     {
-        $this->id = $id;
+        return $this->user;
+    }
 
+    public function setUser(?Users $user): static
+    {
+        $this->user = $user;
         return $this;
     }
 
-    public function getUserId(): ?int
+    public function getPrizeDistribution(): ?PrizeDistribution
     {
-        return $this->user_id;
+        return $this->prizeDistribution;
     }
 
-    public function setUserId(int $user_id): static
+    public function setPrizeDistribution(?PrizeDistribution $prizeDistribution): static
     {
-        $this->user_id = $user_id;
-
-        return $this;
-    }
-
-    public function getPrizeDistributionId(): ?int
-    {
-        return $this->prize_distribution_id;
-    }
-
-    public function setPrizeDistributionId(int $prize_distribution_id): static
-    {
-        $this->prize_distribution_id = $prize_distribution_id;
-
+        $this->prizeDistribution = $prizeDistribution;
         return $this;
     }
 
@@ -69,7 +60,6 @@ class UserPrizes
     public function setDatePlayed(\DateTimeInterface $date_played): static
     {
         $this->date_played = $date_played;
-
         return $this;
     }
 }
